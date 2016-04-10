@@ -1,3 +1,5 @@
-# Host source of google app engine
+# afterships
 
-Use different branch for different GAE projects.
+This branch is used for hosting source of GAE project - afterships.
+
+
