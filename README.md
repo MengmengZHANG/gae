@@ -9,7 +9,7 @@ dev_appserver.py gae/
 
 # This will deploy to the app engine but not updating the source hosting
 
-appcfg.py -A afterships -V v1  update gae/
+appcfg.py -A afterships -V 1  update gae/
 
 
 afterships.appspot.com
