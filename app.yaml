@@ -17,7 +17,7 @@
 # for details.
 
 runtime: python27
-module: autoscaling
+module: default
 api_version: 1
 threadsafe: true
 instance_class: F1
