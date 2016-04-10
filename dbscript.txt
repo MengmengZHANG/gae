@@ -1,0 +1,2 @@
+'customer':'LI Xiaotong','destination':'DongYing','trackingNumber':'EY936951740FR','slug':'china-ems'
+insert into courier (customer,destination,trackingNumber,slug) values ('test','Shandong','EY936951740FR','china-ems')
