@@ -72,7 +72,7 @@ def add():
     if dateStr is not None:
       	print dateFormat
         print datetime.datetime.strptime(dateStr, dateFormat)
-    		courier.createdDate = datetime.datetime.strptime(dateStr, dateFormat)
+    	courier.createdDate = datetime.datetime.strptime(dateStr, dateFormat)
         print courier
         print courier.createdDate
     if courier.trackingNumber and courier.slug:
