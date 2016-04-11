@@ -68,8 +68,13 @@ def add():
     courier.trackingNumber = request.args.get('trackingNumber')
     courier.slug = request.args.get('slug')
     dateStr = request.args.get('date')
+    print dateStr
     if dateStr is not None:
+      	print dateFormat
+        print datetime.datetime.strptime(dateStr, dateFormat)
     		courier.createdDate = datetime.datetime.strptime(dateStr, dateFormat)
+        print courier
+        print courier.createdDate
     if courier.trackingNumber and courier.slug:
         courier.put()
         return redirect(url_for('index'))
