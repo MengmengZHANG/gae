@@ -14,4 +14,10 @@ appcfg.py -A afterships -V 1  update gae/
 
 afterships.appspot.com
 
+#From gcloud console:
+
+dev_appserver.py ./
+
+gcloud preview app deploy ./app.yaml --version 1
+
 

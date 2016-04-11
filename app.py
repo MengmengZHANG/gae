@@ -7,6 +7,7 @@ from google.appengine.ext import ndb
 import datetime,collections
 
 app = Flask(__name__)
+dateFormat = '%Y-%m-%d %H:%M:%S'
 
 # Create user model.
 # 2016-04-10 14:37:12
@@ -52,7 +53,7 @@ def get():
             courierDic['destination'] = courier.destination
             courierDic['trackingNumber'] = courier.trackingNumber
             courierDic['slug'] = courier.slug
-            courierDic['createdDate'] = courier.createdDate.strftime('%Y-%m-%d %H:%M:%S')
+            courierDic['createdDate'] = courier.createdDate.strftime(dateFormat)
             objects_list.append(courierDic)
         result = jsonify(offset=offset,total=total,records=objects_list)
     except Exception,e: print str(e)
@@ -66,6 +67,9 @@ def add():
     courier.destination = request.args.get('destination')
     courier.trackingNumber = request.args.get('trackingNumber')
     courier.slug = request.args.get('slug')
+    dateStr = request.args.get('date')
+    if dateStr is not None:
+    		courier.createdDate = datetime.datetime.strptime(dateStr, dateFormat)
     if courier.trackingNumber and courier.slug:
         courier.put()
         return redirect(url_for('index'))
