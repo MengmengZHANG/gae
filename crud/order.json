@@ -1,0 +1,30 @@
+{
+  "list": [
+    {
+      "id": 1,
+      "dateTime": "2016-06-05 06:21:00",
+      "buyer": "huizi",
+      "delegate": "huizi",
+      "product": "daPen",
+      "quantity": 1,
+      "cost": 10,
+      "price": 100,
+      "payed": false,
+      "stockStatus": "jia",
+      "note": "note"
+    },
+    {
+      "id": 2,
+      "dateTime": "2016-06-05 06:21:00",
+      "buyer": "huizi",
+      "delegate": "huizi",
+      "product": "daPen",
+      "quantity": 1,
+      "cost": 10,
+      "price": 100,
+      "payed": false,
+      "stockStatus": "jia",
+      "note": "note"
+    }
+  ]
+}

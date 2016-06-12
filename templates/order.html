@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRUD Table</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="static/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/lib/bootstrap-table-1.10.1/src/bootstrap-table.css">
+    <link rel="stylesheet" href="static/css/examples.css">
+    <style>
+        .update {
+            color: #333;
+            margin-right: 5px;
+        }
+        .remove {
+            color: red;
+            margin-left: 5px;
+        }
+        .alert {
+            padding: 0 14px;
+            margin-bottom: 0;
+            display: inline-block;
+        }
+    </style>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/lib/bootstrap-table-1.10.1/src/bootstrap-table.js"></script>
+    <script src="static/lib/bootstrap-table-1.10.1/src/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="static/js/ga.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>未发货</h1>
+        <p class="toolbar">
+            <a class="create btn btn-primary btn-default" href="javascript:">创建</a>
+            <span class="alert"></span>
+        </p>
+        
+        <table id="table"
+               data-show-refresh="true"
+               data-show-columns="true"
+               data-search="true"
+               data-query-params="queryParams"
+               data-toolbar=".toolbar"
+               data-locale="zh-CN">
+            <thead>
+<!--                         <tr>
+                <th><input type="text" class="addRow" name="dateTime1"></input></th>
+                <th><input type="text" class="addRow" name="buyer1"></input></th>
+                <th><input type="text" class="addRow" name="delegate1"></input></th>
+                <th><input type="text" class="addRow" name="product1"></input></th>
+                <th><input type="text" class="addRow" name="quantity1"></input></th>
+                <th><input type="text" class="addRow" name="cost1"></input></th>
+                <th><input type="text" class="addRow" name="price1"></input></th>
+                <th><input type="text" class="addRow" name="payed1"></input></th>
+                <th><input type="text" class="addRow" name="stockStatus1"></input></th>
+                <th><input type="text" class="addRow" name="note1"></input></th>
+                <th>
+                    <a class="update" title="Update Item" href="javascript:"><i class="glyphicon glyphicon-plus"></i></a>
+                </th>
+            </tr> -->
+            <tr>
+                <th data-field="dateTime" data-sortable="true">订货时间</th>
+                <th data-field="buyer" data-sortable="true">买家</th>
+                <th data-field="delegate" data-sortable="true">代理</th>
+                <th data-field="product" data-sortable="true">物品</th>
+                <th data-field="quantity" data-sortable="true">数量</th>
+                <th data-field="cost" data-sortable="true">成本EUR</th>
+                <th data-field="price" data-sortable="true">卖价RMB</th>
+                <th data-field="payed" data-sortable="true">付款？</th>
+                <th data-field="stockStatus" data-sortable="true">备货状态</th>
+                <th data-field="note" data-sortable="true">备注</th>
+                <th data-field="action"
+                    data-align="center"
+                    data-formatter="actionFormatter"
+                    data-events="actionEvents" 
+                    data-sortable="true">删除/修改</th>
+            </tr>
+
+            </thead>
+        </table>
+    </div>
+
+    <div id="modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="createUpdateOrder" class="form-horizontal" role="form">
+    <!--                     <div class="form-group">
+                            <label>订货时间</label>
+                            <input type="text" class="form-control" name="dateTime" placeholder="订货时间">
+                        </div> -->
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">买家</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="buyer" placeholder="买家">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">代理</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="delegate" placeholder="代理">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">物品</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="product" placeholder="物品">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">数量</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="quantity" placeholder="数量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">成本EUR</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="cost" placeholder="成本EUR">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">卖价RMB</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="price" placeholder="卖价RMB">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">付款？</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="payed" placeholder="付款？">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">备货状态</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="stockStatus" placeholder="备货状态">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">备注</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="note" placeholder="备注">
+                            </div>
+                        </div>
+                    </form><!-- ./form-horizontal -->
+                </div><!-- ./modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary submit">提交</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+<script>
+
+    var API_URL = 'http://localhost:3001/list/';
+
+    var $table = $('#table').bootstrapTable({url: API_URL}),
+        $modal = $('#modal').modal({show: false}),
+        $alert = $('.alert').hide();
+
+    $(function () {
+        // create event
+        $('.create').click(function () {
+            showModal($(this).text());
+        });
+
+        $modal.find('.submit').click(function () {
+            var row = {};
+
+            $modal.find('input[name]').each(function () {
+                row[$(this).attr('name')] = $(this).val();
+            });
+
+            $.ajax({
+                url: API_URL + ($modal.data('id') || ''),
+                type: $modal.data('id') ? 'put' : 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(row),
+                success: function () {
+                    $modal.modal('hide');
+                    $table.bootstrapTable('refresh');
+                    showAlert(($modal.data('id') ? 'Update' : 'Create') + ' item successful!', 'success');
+                },
+                error: function () {
+                    $modal.modal('hide');
+                    showAlert(($modal.data('id') ? 'Update' : 'Create') + ' item error!', 'danger');
+                }
+            });
+        });
+    });
+
+    function queryParams(params) {
+        return {};
+    }
+
+    function actionFormatter(value) {
+        return [
+            '<a class="update" href="javascript:" title="Update Item"><i class="glyphicon glyphicon-edit"></i></a>',
+            '<a class="remove" href="javascript:" title="Delete Item"><i class="glyphicon glyphicon-remove-circle"></i></a>',
+        ].join('');
+    }
+
+    // update and delete events
+    window.actionEvents = {
+        'click .update': function (e, value, row) {
+            showModal($(this).attr('title'), row);
+        },
+        'click .remove': function (e, value, row) {
+            if (confirm('Are you sure to delete this item?')) {
+                $.ajax({
+                    url: API_URL + row.id,
+                    type: 'delete',
+                    success: function () {
+                        $table.bootstrapTable('refresh');
+                        showAlert('Delete item successful!', 'success');
+                    },
+                    error: function () {
+                        showAlert('Delete item error!', 'danger');
+                    }
+                })
+            }
+        }
+    };
+
+    function showModal(title, row) {
+        row = row || {
+            id: '',
+            dateTime: '',
+            buyer: '',
+            delegate: '',
+            product: '',
+            quantity: '',
+            cost: '',
+            price: '',
+            payed: '',
+            stockStatus: '',
+            note: ''
+        }; // default row value
+
+        $modal.data('id', row.id);
+        $modal.find('.modal-title').text(title);
+        for (var name in row) {
+            $modal.find('input[name="' + name + '"]').val(row[name]);
+        }
+        $modal.modal('show');
+    }
+
+    function showAlert(title, type) {
+        $alert.attr('class', 'alert alert-' + type || 'success')
+              .html('<i class="glyphicon glyphicon-check"></i> ' + title).show();
+        setTimeout(function () {
+            $alert.hide();
+        }, 3000);
+    }
+</script>
+</body>
+</html>
