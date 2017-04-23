@@ -20,3 +20,8 @@ indexes:
   - name: trackingNumber
   - name: dateTime
     direction: desc
+
+- kind: Shipping
+  properties:
+  - name: trackingNumber
+  - name: index
