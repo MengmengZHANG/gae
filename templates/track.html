@@ -66,7 +66,7 @@
 	    <tbody>
 	      <tr ng-repeat="courier in couriers">
 	        <td>
-                <a type="button" class="btn btn-danger btn-xs" href="/track/delete?key={{courier.key}}">Delete</button><br>
+                <a type="button" class="btn btn-danger btn-xs" href="/track/delete?key={{courier.key}}" style="display: none;">Delete</button><br>
         	</td>
 	        <td>{{courier.customer}}</td>
 	        <td>{{courier.destination}}</td>
