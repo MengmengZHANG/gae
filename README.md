@@ -1,5 +1,7 @@
 # afterships
 
+https://console.cloud.google.com/appengine/versions?project=afterships&serviceId=default&versionssize=50
+
 1) install gcloud and do initalization
 
 https://cloud.google.com/appengine/docs/standard/python/download
@@ -26,12 +28,11 @@ C:\Users\username\AppData\Local\Google\Cloud SDK\google-cloud-sdk\platform\googl
 
 # This will deploy to the app engine but not updating the source hosting
 
-appcfg.py -A afterships -V 2  update ./
+gcloud app deploy
 
+gcloud app browse
 
 afterships.appspot.com
-
-
 
 
 #TODO
