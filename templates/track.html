@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head lang="zh-Hans">
-	<title>XLL的物流</title>
+	<title>track shipment for Yulu</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="static/lib/bootstrap/css/bootstrap.min.css">
@@ -15,22 +15,22 @@
 	<!--h3>追踪一个新的包裹</h3-->
 	<form role="form" action="/track/add">
 		<div class="form-group">
-			<label>客户/主要物品:</label>
+			<label>Client / Package contents:</label>
             <input type="text" name="customer" value="" class="form-control">
 		</div>
 		<div class="form-group">
-			<label>目的地:</label>
+			<label>Destination:</label>
 			<input type="text" name="destination" value="" class="form-control">
 		</div>
 		<div class="form-group">
-			<label>包裹号:</label>
+			<label>Tracking number:</label>
 			<input type="text" name="trackingNumber" value="" class="form-control">
 		</div>
 		<div class="form-group">
-			<label>物流公司:</label>
-			<input type="text" name="slug" value="china-ems" class="form-control">china-ems, colissimo, OR la-poste-colissimo
+			<label>Courier service:</label>
+			<input type="text" name="slug" value="china-ems" class="form-control">E.g. china-ems, colissimo, OR la-poste-colissimo
 		</div>
-		<input type="submit" value="提交" name="btnSubmit" class="btn btn-warning">
+		<input type="submit" value="Submit" name="btnSubmit" class="btn btn-warning">
 	</form><br><br> 
 
 	<div id="as-root"></div>
@@ -45,22 +45,22 @@
 
 	<div ng-app="myApp" ng-controller="myCtrl">
 	  <h3>
-	  	<div>物流历史({{total}})</div>
+	  	<div>Shipment history ({{total}} packages)</div>
 	  </h3>
-	  <h4 class="text-info">上次更新：{{lastUpdate}} 之前（更新时间多余1分钟时：刷新页面F5可以更新数据，多刷几次）</h4>
+	  <h4 class="text-info">Last update：{{lastUpdate}} ago</h4>
 	  
 	  <table class="table table-striped">
 	    <thead>
 	      <tr>
 	      	<th/>
-	        <th>客户/主要物品</th>
-	        <th>目的地</th>
-	        <th>包裹号</th>
+	        <th>Client/PackageContents</th>
+	        <th>Destination</th>
+	        <th>TrackingNumber</th>
 	        <!-- <th>物流公司</th> -->
-	        <th>到达?</th>
-	        <th>更新时间</th>
-	        <th>最新状态</th>
-	        <th>登记时间</th>
+	        <th>Arrived?</th>
+	        <th>Last updated</th>
+	        <th>Status</th>
+	        <th>Submitted time</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -70,7 +70,7 @@
         	</td>
 	        <td>{{courier.customer}}</td>
 	        <td>{{courier.destination}}</td>
-            <td>{{courier.trackingNumber}}&nbsp;&nbsp;<a href="http://m.kuaidi100.com/index_all.html?type=ems&postid={{courier.trackingNumber}}" target="_blank" class="btn btn-warning btn-xs">查询</a></td>
+            <td>{{courier.trackingNumber}}&nbsp;&nbsp;<a href="http://m.kuaidi100.com/index_all.html?type=ems&postid={{courier.trackingNumber}}" target="_blank" class="btn btn-warning btn-xs">Details</a></td>
 	        <!-- <td>{{courier.slug}}</td> -->
 	        <!-- <td>{{courier.arrived}}</td> -->
 	        <td ng-if="courier.arrived">
@@ -88,8 +88,8 @@
 	  </table>
 
 	  <ul class="pager">
-	    <li class="previous"><a href="" ng-click="previous()">上一页</a></li>
-	    <li class="next"><a href="" ng-click="next()">下一页</a></li>
+	    <li class="previous"><a href="" ng-click="previous()">Previous</a></li>
+	    <li class="next"><a href="" ng-click="next()">Next</a></li>
 	  </ul>
 	</div>
 </div>

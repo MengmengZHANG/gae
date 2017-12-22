@@ -110,9 +110,9 @@ def get():
                 dt = ( now - lastStatus.dateTime).total_seconds()
                 print '\tlastUpdate ' + str(dt) + ' seconds ago'
                 lastStatusDateHumanReadable = humanize_time(dt)
-                courierDic['lastStatusDate'] = lastStatusDateHumanReadable + '前'
+                courierDic['lastStatusDate'] = lastStatusDateHumanReadable + ' ago'
                 courierDic['lastStatus'] = lastStatus.description
-            courierDic['createdDate'] = humanize_time((now -courier.createdDate).total_seconds()) + '前'
+            courierDic['createdDate'] = humanize_time((now -courier.createdDate).total_seconds()) + ' ago'
             objects_list.append(courierDic)
         result = jsonify(offset=offset,total=total,lastUpdate=lastUpdate,records=objects_list)
     except Exception,e:
