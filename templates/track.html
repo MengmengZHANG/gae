@@ -70,7 +70,7 @@
         	</td>
 	        <td>{{courier.customer}}</td>
 	        <td>{{courier.destination}}</td>
-            <td>{{courier.trackingNumber}}&nbsp;&nbsp;<a href="http://m.kuaidi100.com/index_all.html?type=ems&postid={{courier.trackingNumber}}" target="_blank" class="btn btn-warning btn-xs">Details</a></td>
+            <td>{{courier.trackingNumber}}&nbsp;&nbsp;<a href="http://m.kuaidi100.com/index_all.html?type={{courier.slug}}&postid={{courier.trackingNumber}}" target="_blank" class="btn btn-warning btn-xs">Details</a></td>
 	        <!-- <td>{{courier.slug}}</td> -->
 	        <!-- <td>{{courier.arrived}}</td> -->
 	        <td ng-if="courier.arrived">

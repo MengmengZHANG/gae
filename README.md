@@ -34,7 +34,6 @@ gcloud app browse
 
 afterships.appspot.com
 
-
 #TODO
 
 Time zone problem when doing the diff

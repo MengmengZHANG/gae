@@ -9,6 +9,14 @@ import traceback
 from pytz import timezone
 import pytz
 import logging
+#import requests_toolbelt.adapters.appengine
+from google.appengine.api import urlfetch
+
+# https://cloud.google.com/appengine/docs/standard/python/issue-requests
+# Use the App Engine Requests adapter. This makes sure that Requests uses
+# URLFetch.
+# requests_toolbelt.adapters.appengine.monkeypatch()
+urlfetch.set_default_fetch_deadline(600)
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
@@ -157,31 +165,33 @@ def updateShipping():
 
     lastUpdateParam = Parameter.query(Parameter.name == 'lastUpdate').get();
     lastUpate = None
-    if lastUpdateParam is not None:
-        now = datetime.datetime.now()
-        dt = now - datetime.datetime.strptime(lastUpdateParam.value, dateTimeFormat)
-        diffSeconds = dt.total_seconds()
-        if diffSeconds < 60:
-            return "request too frequently, please wait for at least 1 minute"
+    #if lastUpdateParam is not None:
+    #    now = datetime.datetime.now()
+    #    dt = now - datetime.datetime.strptime(lastUpdateParam.value, dateTimeFormat)
+    #    diffSeconds = dt.total_seconds()
+    #    if diffSeconds < 60:
+    #        return "request too frequently, please wait for at least 1 minute"
 
 
-    courriers = Courier.query().order(-Courier.createdDate).fetch(20)
+    courriers = Courier.query().order(-Courier.createdDate).fetch(50)
     for courrier in courriers:
         if courrier.arrived == True:
             continue
         trackingNumber = courrier.trackingNumber
         print trackingNumber
-        url = "http://m.kuaidi100.com/query?type=ems&postid=" + trackingNumber    
-        response = requests.get(url)
-        json = response.json()
-        if json['status'] != "200":
+        url = "http://m.kuaidi100.com/query?type=" + courrier.slug + "&postid=" + trackingNumber
+        # response = requests.get(url)
+        # json = response.json()
+        result = urlfetch.fetch(url).content
+        jsonResult = json.loads(result)
+        if jsonResult['status'] != "200":
             continue
         shippings = Shipping.query(Shipping.trackingNumber == trackingNumber).fetch()
         for shipping in shippings:
             shipping.key.delete()
         
         i = 0
-        for leg in json['data']:
+        for leg in jsonResult['data']:
             shipping = Shipping()   
             shipping.index = i
             shipping.trackingNumber = trackingNumber
