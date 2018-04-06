@@ -28,7 +28,7 @@
 		</div>
 		<div class="form-group">
 			<label>Courier service:</label>
-			<input type="text" name="slug" value="china-ems" class="form-control">E.g. china-ems, colissimo, OR la-poste-colissimo
+			<input type="text" name="slug" value="emsguoji" class="form-control">E.g. emsguoji, ems, china-ems, colissimo, OR la-poste-colissimo
 		</div>
 		<input type="submit" value="Submit" name="btnSubmit" class="btn btn-warning">
 	</form><br><br> 
@@ -56,7 +56,7 @@
 	        <th>Client/PackageContents</th>
 	        <th>Destination</th>
 	        <th>TrackingNumber</th>
-	        <!-- <th>物流公司</th> -->
+	        <th>物流公司</th>
 	        <th>Arrived?</th>
 	        <th>Last updated</th>
 	        <th>Status</th>
@@ -70,8 +70,9 @@
         	</td>
 	        <td>{{courier.customer}}</td>
 	        <td>{{courier.destination}}</td>
-            <td>{{courier.trackingNumber}}&nbsp;&nbsp;<a href="http://m.kuaidi100.com/index_all.html?type={{courier.slug}}&postid={{courier.trackingNumber}}" target="_blank" class="btn btn-warning btn-xs">Details</a></td>
-	        <!-- <td>{{courier.slug}}</td> -->
+            <td ng-if="courier.slug == 'china-ems'">{{courier.trackingNumber}}&nbsp;&nbsp;<a href="http://m.kuaidi100.com/index_all.html?type=emsguoji&postid={{courier.trackingNumber}}" target="_blank" class="btn btn-warning btn-xs">Details</a></td>
+			<td ng-if="courier.slug != 'china-ems'">{{courier.trackingNumber}}&nbsp;&nbsp;<a href="http://m.kuaidi100.com/index_all.html?type={{courier.slug}}&postid={{courier.trackingNumber}}" target="_blank" class="btn btn-warning btn-xs">Details</a></td>
+			<td>{{courier.slug}}</td>
 	        <!-- <td>{{courier.arrived}}</td> -->
 	        <td ng-if="courier.arrived">
 			        <span class="glyphicon glyphicon-ok"></span>

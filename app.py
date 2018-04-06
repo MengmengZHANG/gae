@@ -179,7 +179,11 @@ def updateShipping():
             continue
         trackingNumber = courrier.trackingNumber
         print trackingNumber
-        url = "http://m.kuaidi100.com/query?type=" + courrier.slug + "&postid=" + trackingNumber
+        if courrier.slug == "china-ems":
+            url = "http://m.kuaidi100.com/query?type=emsguoji&postid=" + trackingNumber
+        else:
+            url = "http://m.kuaidi100.com/query?type=" + courrier.slug + "&postid=" + trackingNumber
+        
         # response = requests.get(url)
         # json = response.json()
         result = urlfetch.fetch(url).content
